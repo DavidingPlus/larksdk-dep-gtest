@@ -72,6 +72,9 @@ class GTestConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
+        # 导出源代码压缩包，并让压缩包在 ~/.conan2/p/ 目录的 res/ 目录与 conanfile.py 和 conandata.yml 同级，减少一次从 es/ 目录拷贝到 s/ 目录的拷贝操作。
+        copy(self, "res/googletest-release-1.12.1.tar.gz",
+             self.recipe_folder, self.export_folder)
 
     def config_options(self):
         if self.settings.os == "Windows":
