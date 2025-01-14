@@ -114,7 +114,13 @@ class GTestConan(ConanFile):
             )
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # get() 函数支持 file:// 和 https:// 协议。
+        # 这里使用 file://，虽然支持绝对路径，但这里通过 Python 脚本将 conandata.yml 中的相对路径转化为绝对路径。
+        basePath = os.path.dirname(__file__)
+        absolutePath = os.path.join(
+            basePath, self.conan_data["sources"][self.version]["url"])
+        # 加上 file:// 前缀。
+        get(self, f"file://{absolutePath}", strip_root=True)
 
     def generate(self):
         tc = CMakeToolchain(self)
