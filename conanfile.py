@@ -11,6 +11,9 @@ required_conan_version = ">=1.54.0"
 
 
 class GTestConan(ConanFile):
+    # conan export 和 conan export-pkg 命令需要 conanfile.py 中指定版本。
+    version = "1.12.1"
+
     name = "gtest"
     description = "Google's C++ test framework"
     license = "BSD-3-Clause"
